@@ -3,77 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediSecure - Patient & Hospital Dashboard</title>
+    <title>PULSE OS - Athlete Performance & Fitness Analytics</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --success: #16a34a;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --bg: #090d16;
+            --card-bg: #111827;
+            --border: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --cyan: #06b6d4;
+            --purple: #8b5cf6;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
+
         body {
             background-color: var(--bg);
-            color: var(--text);
+            color: var(--text-main);
             padding: 2rem;
+            min-height: 100vh;
         }
+
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
         }
-        h1 {
+
+        .brand-title {
             font-size: 1.8rem;
-            color: var(--text);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            background: linear-gradient(to right, #10b981, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         .badge {
-            background-color: var(--success);
-            color: white;
-            padding: 0.4rem 0.8rem;
+            background-color: var(--accent-glow);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
             border-radius: 9999px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
+
         .card {
             background-color: var(--card-bg);
             padding: 1.5rem;
             border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid #334155;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
+
         .card h3 {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
         }
+
         .card .value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--text);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
         }
+
+        .card .subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .training-log {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .training-log th {
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .training-log td {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+
         .footer {
+            margin-top: 3rem;
             text-align: center;
             color: var(--text-muted);
-            margin-top: 3rem;
             font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
         }
     </style>
 </head>
@@ -81,40 +151,103 @@
 
     <header>
         <div>
-            <h1>🏥 MediSecure Dashboard</h1>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Enterprise Healthcare Management Portal</p>
+            <div class="brand-title">⚡ PULSE OS</div>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Athlete Performance & Gym Training Analytics</p>
         </div>
-        <div class="badge">System Online (v15)</div>
+        <div class="badge">
+            <span class="dot"></span> LIVE SYSTEM v16
+        </div>
     </header>
 
+    <!-- Top Metrics -->
     <div class="grid">
         <div class="card">
-            <h3>Active Patients</h3>
-            <div class="value">1,428</div>
+            <h3>Daily Burn Goal</h3>
+            <div class="value" style="color: var(--accent);">2,840 <span style="font-size: 1rem;">kcal</span></div>
+            <div class="subtext">114% of daily target reached</div>
         </div>
         <div class="card">
-            <h3>ICU Availability</h3>
-            <div class="value" style="color: #38bdf8;">84%</div>
+            <h3>Recovery Index</h3>
+            <div class="value" style="color: var(--cyan);">92%</div>
+            <div class="subtext">Optimal for heavy leg day</div>
         </div>
         <div class="card">
-            <h3>Security Compliance</h3>
-            <div class="value" style="color: var(--success);">100%</div>
+            <h3>Active Gym Members</h3>
+            <div class="value" style="color: var(--purple);">1,249</div>
+            <div class="subtext">+18% this month</div>
         </div>
         <div class="card">
-            <h3>Kubernetes Status</h3>
-            <div class="value" style="color: #f59e0b;">Healthy</div>
+            <h3>K3s Cluster Status</h3>
+            <div class="value" style="color: #f59e0b;">100%</div>
+            <div class="subtext">0 Latency | All Pods Up</div>
         </div>
     </div>
 
-    <div class="card" style="padding: 2rem;">
-        <h2 style="margin-bottom: 1rem; font-size: 1.2rem;">DevSecOps Pipeline Status</h2>
-        <p style="color: var(--text-muted); line-height: 1.6;">
-            This application is continuously deployed via GitHub, Jenkins CI/CD, scanned with Trivy, containerized with Docker, and orchestrated on a K3s Kubernetes cluster with real-time Prometheus & Grafana observability.
-        </p>
+    <!-- Main Content Section -->
+    <div class="section-grid">
+        
+        <!-- Gym Training Module -->
+        <div class="card">
+            <h2 style="font-size: 1.2rem; margin-bottom: 0.5rem;">🏋️ Training & PR Log</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Recent high-intensity workout metrics and personal records.</p>
+            
+            <table class="training-log">
+                <thead>
+                    <tr>
+                        <th>EXERCISE</th>
+                        <th>SETS / REPS</th>
+                        <th>TOP WEIGHT</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Barbell Squat</strong></td>
+                        <td>4 x 8</td>
+                        <td>140 kg</td>
+                        <td><span style="color: var(--accent);">New PR 🏆</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incline Bench Press</strong></td>
+                        <td>4 x 10</td>
+                        <td>100 kg</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deadlift</strong></td>
+                        <td>3 x 5</td>
+                        <td>180 kg</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Weighted Pull-Ups</strong></td>
+                        <td>3 x 12</td>
+                        <td>+20 kg</td>
+                        <td>Completed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Infrastructure Status Card -->
+        <div class="card">
+            <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">🚀 DevSecOps Pipeline</h2>
+            <div style="font-size: 0.9rem; line-height: 1.8; color: var(--text-muted);">
+                <p>• <strong>Build System:</strong> Jenkins CI/CD</p>
+                <p>• <strong>Container Security:</strong> Trivy Scanned</p>
+                <p>• <strong>Orchestration:</strong> K3s Kubernetes</p>
+                <p>• <strong>Monitoring:</strong> Prometheus & Grafana</p>
+            </div>
+            <div style="margin-top: 1.5rem; padding: 1rem; background-color: rgba(255,255,255,0.03); border-radius: 0.5rem; border-left: 3px solid var(--accent);">
+                <p style="font-size: 0.85rem; color: var(--text-main);"><strong>Auto-Deployed via GitHub</strong></p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Latest commit synced live across cluster node 30080.</p>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer">
-        <p>&copy; 2026 MediSecure Systems. Built for PBL-III DevSecOps Project.</p>
+        <p>&copy; 2026 PULSE OS Fitness Systems. Built for DevSecOps Deployment.</p>
     </div>
 
 </body>
